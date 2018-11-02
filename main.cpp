@@ -92,7 +92,7 @@ int main(void)
         return 1;
     }
 
-    while((n = read(sockfd, recvBuff, sizeof(recvBuff)-1)) > 0)
+    while((n = read(sockfd, recvBuff, sizeof(recvBuff)-1)) > 0) /* waits to read from the socket*/
     {
         recvBuff[n] = 0;
         if(fputs(recvBuff, stdout) == EOF)
@@ -100,7 +100,13 @@ int main(void)
             printf("\n Error : Fputs error");
         }
         printf("\n");
-
+        /*write:::*/
+        printf("Please enter the message: ");
+        bzero(buffer,256);
+        fgets(buffer,255,stdin);/* it reads from keyboard of the client */
+        n = write(sockfd,buffer,strlen(buffer));/* writes the entered message on the socket */
+        if (n < 0)
+            printf("ERROR writing to socket");
     }
 
     if( n < 0)
