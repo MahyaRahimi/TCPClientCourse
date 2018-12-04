@@ -83,7 +83,7 @@ int main(void)
     }
 
     serv_addr.sin_family = AF_INET;
-    serv_addr.sin_port = htons(5000);
+    serv_addr.sin_port = htons(4000);
     serv_addr.sin_addr.s_addr = inet_addr("127.0.0.1");
 
     if(connect(sockfd, (struct sockaddr *)&serv_addr, sizeof(serv_addr))<0)
@@ -92,14 +92,15 @@ int main(void)
         return 1;
     }
 
-    while((n = read(sockfd, recvBuff, sizeof(recvBuff)-1)) > 0) /* waits to read from the socket*/
+    //while((n = read(sockfd, recvBuff, sizeof(recvBuff)-1)) > 0) /* waits to read from the socket*/
+    while(1)
     {
         recvBuff[n] = 0;
         if(fputs(recvBuff, stdout) == EOF)
         {
             printf("\n Error : Fputs error");
         }
-        printf("\n");
+        //printf("\n");
         /*write:::*/
         printf("Please enter the message: ");
         bzero(buffer,256);
@@ -109,11 +110,10 @@ int main(void)
             printf("ERROR writing to socket");
     }
 
-    if( n < 0)
+    /*if( n < 0)
     {
         printf("\n Read Error \n");
-    }
-
+    }*/
 
     return 0;
 }
