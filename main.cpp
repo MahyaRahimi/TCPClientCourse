@@ -67,6 +67,30 @@
 #include <unistd.h>
 #include <errno.h>
 #include <arpa/inet.h>
+#include <mutex>
+#include <condition_variable>
+#include <iostream>
+#include <thread>
+
+std::mutex m;                    //for exclusive access to memory
+std::condition_variable cv;      //blocks the calling thread until notified to resume
+int vari;
+
+void reading(int sockfd, char recvBuff[], int s)
+{
+    std::unique_lock<std::mutex> lk(m);
+    while(vari) cv.wait(lk);
+    std::cout << "ready to read"<<std::endl;
+
+    int n;
+    while (1)
+    {
+        std::cout << "read while"<<std::endl;
+        n=read(sockfd, recvBuff, s);
+        if (n<0)
+            std::cout << "cant read" << std::endl;
+     }
+}
 
 int main(void)
 {
@@ -74,6 +98,15 @@ int main(void)
     char recvBuff[1024];
     char buffer[256];
     struct sockaddr_in serv_addr;
+    /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
+    /* create transmitter thread : */
+    std::thread threadtransmit;//creates thread threadtransmit
+    int s = sizeof(recvBuff)-1;
+    threadtransmit = std::thread(reading, sockfd, recvBuff, s); //function reading
+    /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
+    {
+        std::unique_lock<std::mutex> lk(m);
+
 
     memset(recvBuff, '0' ,sizeof(recvBuff));
     if((sockfd = socket(AF_INET, SOCK_STREAM, 0))< 0)
@@ -91,6 +124,12 @@ int main(void)
         printf("\n Error : Connect Failed \n");
         return 1;
     }
+
+    vari=1;
+    }
+    cv.notify_one();
+    std::cout << "notified"<<std::endl;
+
 
     //while((n = read(sockfd, recvBuff, sizeof(recvBuff)-1)) > 0) /* waits to read from the socket*/
     while(1)

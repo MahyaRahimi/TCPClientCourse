@@ -14,7 +14,7 @@ CC            = gcc
 CXX           = g++
 DEFINES       = -DQT_QML_DEBUG
 CFLAGS        = -pipe -g -Wall -W -fPIC $(DEFINES)
-CXXFLAGS      = -pipe -g -std=gnu++0x -Wall -W -fPIC $(DEFINES)
+CXXFLAGS      = -pipe -std=c++0x -pthread -g -std=gnu++0x -Wall -W -fPIC $(DEFINES)
 INCPATH       = -I/home/ubuntu/QT_workspace/gitkraken/TCPlientcourse -I. -I/home/ubuntu/Qt5.6.3/5.6.3/gcc_64/mkspecs/linux-g++
 QMAKE         = /home/ubuntu/Qt5.6.3/5.6.3/gcc_64/bin/qmake
 DEL_FILE      = rm -f
@@ -36,7 +36,7 @@ DISTNAME      = TCPlientcourse_old1.0.0
 DISTDIR = /home/ubuntu/QT_workspace/gitkraken/TCPlientcourse/home/ubuntu/QT_workspace/gitkraken/RBC/build_RBC/.tmp/TCPlientcourse_old1.0.0
 LINK          = g++
 LFLAGS        = 
-LIBS          = $(SUBLIBS)  
+LIBS          = $(SUBLIBS) -pthread 
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
