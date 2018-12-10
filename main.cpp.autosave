@@ -128,7 +128,7 @@ int main(void)
 
         /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
         /*make non_blocking socket: */
-        int flags = fcntl(sockfd, F_GETFL);
+       /* int flags = fcntl(sockfd, F_GETFL);
         if(flags <0)
         {
             printf("could not get flags on TCP listening socket");
@@ -138,7 +138,7 @@ int main(void)
         {
             printf("could not set TCP listening socket to be non-blocking");
             return -1;
-        }
+        }*/
         /*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 
         vari=1;
