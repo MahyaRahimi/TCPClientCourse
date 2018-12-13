@@ -5,4 +5,8 @@ CONFIG -= qt
 QMAKE_CXXFLAGS += -std=c++0x -pthread
 LIBS += -pthread
 
-SOURCES += main.cpp
+SOURCES += main.cpp \
+    tcp.cpp
+
+HEADERS += \
+    tcp.h

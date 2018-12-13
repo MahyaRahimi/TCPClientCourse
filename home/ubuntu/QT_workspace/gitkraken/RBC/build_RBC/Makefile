@@ -48,8 +48,10 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = /home/ubuntu/QT_workspace/gitkraken/TCPlientcourse/main.cpp 
-OBJECTS       = main.o
+SOURCES       = /home/ubuntu/QT_workspace/gitkraken/TCPlientcourse/main.cpp \
+		/home/ubuntu/QT_workspace/gitkraken/TCPlientcourse/tcp.cpp 
+OBJECTS       = main.o \
+		tcp.o
 DIST          = /home/ubuntu/Qt5.6.3/5.6.3/gcc_64/mkspecs/features/spec_pre.prf \
 		/home/ubuntu/Qt5.6.3/5.6.3/gcc_64/mkspecs/common/unix.conf \
 		/home/ubuntu/Qt5.6.3/5.6.3/gcc_64/mkspecs/common/linux.conf \
@@ -179,7 +181,8 @@ DIST          = /home/ubuntu/Qt5.6.3/5.6.3/gcc_64/mkspecs/features/spec_pre.prf 
 		/home/ubuntu/Qt5.6.3/5.6.3/gcc_64/mkspecs/features/exceptions.prf \
 		/home/ubuntu/Qt5.6.3/5.6.3/gcc_64/mkspecs/features/yacc.prf \
 		/home/ubuntu/Qt5.6.3/5.6.3/gcc_64/mkspecs/features/lex.prf \
-		/home/ubuntu/QT_workspace/gitkraken/TCPlientcourse/TCPlientcourse_old.pro  /home/ubuntu/QT_workspace/gitkraken/TCPlientcourse/main.cpp
+		/home/ubuntu/QT_workspace/gitkraken/TCPlientcourse/TCPlientcourse_old.pro tcp.h /home/ubuntu/QT_workspace/gitkraken/TCPlientcourse/main.cpp \
+		/home/ubuntu/QT_workspace/gitkraken/TCPlientcourse/tcp.cpp
 QMAKE_TARGET  = TCPlientcourse_old
 DESTDIR       = 
 TARGET        = TCPlientcourse_old
@@ -494,8 +497,11 @@ compiler_clean:
 
 ####### Compile
 
-main.o: /home/ubuntu/QT_workspace/gitkraken/TCPlientcourse/main.cpp 
+main.o: /home/ubuntu/QT_workspace/gitkraken/TCPlientcourse/main.cpp /home/ubuntu/QT_workspace/gitkraken/TCPlientcourse/tcp.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o /home/ubuntu/QT_workspace/gitkraken/TCPlientcourse/main.cpp
+
+tcp.o: /home/ubuntu/QT_workspace/gitkraken/TCPlientcourse/tcp.cpp /home/ubuntu/QT_workspace/gitkraken/TCPlientcourse/tcp.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tcp.o /home/ubuntu/QT_workspace/gitkraken/TCPlientcourse/tcp.cpp
 
 ####### Install
 
